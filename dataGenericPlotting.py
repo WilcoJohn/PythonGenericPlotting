@@ -9,10 +9,7 @@ import matplotlib.pyplot as plt
 import os
 import fnmatch
 
-# interactive app stuff
-# import tkinter
-# m = tkinter.Tk()
-# m.mainloop()
+
 
 
 
@@ -48,7 +45,30 @@ dataPlot = dataRaw[['Time_min','Sensor1','Sensor2','Sensor3','Sensor4']].rolling
 F = plt.figure(figsize=(7, 4));
 # ax = F.add_subplot(111)     
 
-plt.plot(dataPlot["Time_min"],dataPlot["Sensor3"], label = "T$_{cond}$", color = '#2ca02c'); 
+xCol = 'Time_min';
+yCol = 'Sensor1';
 
 
+
+plt.plot(dataRaw[xCol],dataRaw[yCol], label = "T$_{unfiltered}$", color = 'r'); 
+plt.plot(dataPlot[xCol],dataPlot[yCol], label = "T$_{filtered}$", color = 'b'); 
+
+vlinePlots = [60,120];
+
+# filter values using logical array indexing/slicing
+meanTempVlines = dataPlot[(dataPlot[xCol]>=numpy.min(vlinePlots)) 
+                          & (dataPlot[xCol]<=numpy.max(vlinePlots))][yCol].mean();
+
+plt.vlines(vlinePlots, 0, dataPlot[yCol].max() *1.05, linestyles = '--',
+           label = "Mean value {}".format(numpy.round(meanTempVlines,2)),
+           color = 'k');
+
+
+plt.xlim([dataPlot[xCol].min(), dataPlot[xCol].max() *1.05]);
+plt.ylim([0, dataPlot[yCol].max() *1.05]);
+
+
+plt.legend(loc = [1.05,0.65]);
+plt.ylabel('yVal [--]');
+plt.xlabel('xVal [--]');
 plt.show();                             
