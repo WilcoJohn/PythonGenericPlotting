@@ -20,12 +20,11 @@ def getRelevantFilePaths(path, pattern, matchPattern = True):       # get releva
     if (type(path) is str):
         for root, dirs, files in os.walk(path):
             for fi in files:
-                filePathName = root + '\\' + fi;
-                if (fnmatch.fnmatch(filePathName,pattern) and matchPattern):
-                    results.append(filePathName);                   # if pattern matches append file
+                if (fnmatch.fnmatch(fi,pattern) and matchPattern):
+                    results.append( root + '\\' + fi);                   # if pattern matches append file
                 
-                if (not fnmatch.fnmatch(filePathName,pattern) and not matchPattern):
-                    results.append(filePathName);                   # if pattern does not match, append file
+                if (not fnmatch.fnmatch(fi,pattern) and not matchPattern):
+                    results.append( root + '\\' + fi);                   # if pattern does not match, append file
     
     elif ((type(path) is list) or (type(path) is tuple)):           # filter iteratible list for relevant patter
         if (matchPattern): 
@@ -47,7 +46,7 @@ def getRelevantFilePaths(path, pattern, matchPattern = True):       # get releva
 
 
 
-filePath = r"C:\Users\Test\File\For\User";           # raw string with string interpolation
+filePath = r"C:\Users\wilco\OneDrive - Resonant Group\Desktop\Projects\13450 - DEEP\Data Analysis";           # raw string with string interpolation
 filePattern = "*.csv";                               # file patterns to list
 
 relevantFilePaths = getRelevantFilePaths(filePath,filePattern);
@@ -93,7 +92,6 @@ plt.legend(loc = [1.05,0.65]);
 plt.ylabel('yVal [--]');
 plt.xlabel('xVal [--]');
 plt.show();                             
-
 
 
 
