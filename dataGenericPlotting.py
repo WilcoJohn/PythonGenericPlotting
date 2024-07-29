@@ -27,7 +27,7 @@ def getRelevantFilePaths(path, pattern, matchPattern = True):       # get releva
                 if (not fnmatch.fnmatch(filePathName,pattern) and not matchPattern):
                     results.append(filePathName);                   # if pattern does not match, append file
     
-    elif ((type(path) is list) or (type(path) is list tuple)):                             # filter iteratible list for relevant patter
+    elif ((type(path) is list) or (type(path) is tuple)):           # filter iteratible list for relevant patter
         if (matchPattern): 
             results = fnmatch.filter(path, pattern);
         else: 
