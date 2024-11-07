@@ -34,7 +34,7 @@ def getRelevantFilePaths(path, pattern, matchPattern = True):       # get releva
                 if (not fnmatch.fnmatch(pi,pattern)):
                     results.append(pi);
     else:
-        return "error";
+        rasie TypeError("Unrecognised data type: {}".format(type(path)));
         
     results.sort();
     return results;
